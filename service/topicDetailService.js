@@ -11,3 +11,8 @@ exports.findOne = function(sid, source, res) {
 	})
 }
 
+exports.create = function(topicDetail, res){
+	TopicDetail.create(topicDetail).then(detail => {
+		res(detail);
+	})
+}
