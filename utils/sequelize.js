@@ -12,7 +12,7 @@ var sequelize = new Sequelize(config.dbconfig.database, config.dbconfig.user, co
   }
 });
 
-sequelize.sync({force: false});
+// sequelize.sync({force: false});
 
 var db        = {};
 

@@ -22,7 +22,7 @@ var Topic = db.sequelize.define('topic', {
 		allowNull: true
 	},
 	img: {
-		type: DataTypes.STRING,
+		type: DataTypes.TEXT,
 		allowNull: true
 	},
 	source: {

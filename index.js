@@ -3,7 +3,13 @@ var express = require('express');
 var app = express();
 
 app.get('/list', function(req, res) {
-	Topic.findAll().then(topic => {
+	Topic.findAll({
+		where:{
+            img:{
+                '$ne': ''
+            }
+        }
+	}).then(topic => {
 		res.json(topic);
 	})
 });

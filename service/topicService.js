@@ -39,3 +39,17 @@ exports.findOrCreate = function(topic, res) {
 		}
 	})
 }
+
+exports.update = function(topic, res){
+	Topic.update({
+		inside: topic.inside,
+		img: topic.img
+	}, {
+		where: {
+			sid: topic.sid,
+			source: topic.source
+		}
+	}).then(result => {
+		res && res(result)
+	})
+}
