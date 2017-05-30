@@ -36,10 +36,11 @@ var Topic = db.sequelize.define('topic', {
 	inside: {
 		type: DataTypes.BOOLEAN,
 		allowNull: true
-	}
+	},
+	myDate: { type: DataTypes.DATE, defaultValue: DataTypes.NOW }
 }, {
 	freezeTableName: true,
-	timestamps: false
+	timestamps: true
 });
 
 module.exports = Topic;
