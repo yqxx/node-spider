@@ -1,8 +1,7 @@
 var async = require('async');
 var spider = require('./utils/spider');
 var CronJob = require('cron').CronJob;
-var topicService = require('./service/TopicService');
-var topicDetailService = require('./service/TopicDetailService');
+var topicService = require('./service/topicService');
 var topicDetailService = require('./service/topicDetailService');
 var log = require('./utils/log');
 
