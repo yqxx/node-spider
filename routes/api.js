@@ -1,5 +1,5 @@
-var Topic = require('./model/Topic');
-var topicDetailService = require('./service/topicDetailService');
+var Topic = require('../model/Topic');
+var topicDetailService = require('../service/topicDetailService');
 var express = require('express');
 var app = express();
 
@@ -9,7 +9,8 @@ app.get('/list', function(req, res) {
             img:{
                 '$ne': ''
             }
-        }
+        },
+        'order': "id DESC"
 	}).then(topic => {
 		res.json(topic);
 	})

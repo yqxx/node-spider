@@ -45,5 +45,13 @@ var rule = {
 	detailMatch: detailMatch
 }
 
+// var job = new CronJob({
+// 	cronTime: '*/5 * * * * *',
+// 	onTick: function() {
+// 		topic()
+// 	},
+// 	start: false
+// });
+
 // spidbase.list(rule);
 spidbase.detail(rule);
