@@ -5,31 +5,25 @@ var topicService = require('./service/topicService');
 var topicDetailService = require('./service/topicDetailService');
 var log = require('./utils/log');
 
-function topic() {
+var rules = {
+	'mafengwo':{
+		source: 'mafengwo',
+		href:'http://www.mafengwo.cn/gonglve/',
+		topicMatch: topicMatch
+	}
+}
+
+function topic(rule) {
 	async.waterfall([
 		function(next) {
 			var arg = {
-				href: 'http://www.mafengwo.cn/gonglve/'
+				href: rule.href
 			}
 			spider.getHTML(arg, next);
 		},
 		function(arg, next) {
 			var $ = spider.getResult(arg.body + '');
-			
-			$('div.feed-item').each(function(i, e) {
-		        var topic = {
-					title: $('.title',e).text().replace(/\s+/g, ' '),
-					info: $('.info',e).text().replace(/\s+/g, ' '),
-					href: $('a',e).attr("href"),	
-					source: 'mafengwo',
-					img: $('img',e).first().attr('src'),
-					sid: $(e).attr('data-fid'),
-					inside:false
-				}
-				log(topic);
-
-		        topicService.findOrCreate(topic);
-		    });
+			rule.topicMatch($);
 		}
 	], function(err, result) {
 		console.log(result);
@@ -73,6 +67,23 @@ function topicDetail() {
 			});
 		});
 	})
+}
+
+function topicMatch($) {
+	$('div.feed-item').each(function(i, e) {
+		var topic = {
+			title: $('.title', e).text().replace(/\s+/g, ' '),
+			info: $('.info', e).text().replace(/\s+/g, ' '),
+			href: $('a', e).attr("href"),
+			source: 'mafengwo',
+			img: $('img', e).first().attr('src'),
+			sid: $(e).attr('data-fid'),
+			inside: false
+		}
+		log(topic);
+
+		topicService.findOrCreate(topic);
+	});
 }
 
 var detailMatch = function($) {
@@ -125,6 +136,8 @@ var job = new CronJob({
 	start: false
 });
 
-// topic();
-topicDetail();
+topic(rules['mafengwo']);
+// topicDetail();
+
+// console.log(rules['mafengwo'].href);
 
