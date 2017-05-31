@@ -44,7 +44,8 @@ function topicDetail() {
 					var arg = {
 						href: topic.href,
 						sid: topic.sid,
-						source: topic.source
+						source: topic.source,
+						title: topic.title
 					}
 					spider.getHTML(arg, next);
 				},
@@ -55,6 +56,7 @@ function topicDetail() {
 					topicDetailService.create({
 						sid: arg.sid,
 						content: obj.content,
+						title: arg.title,
 						source: arg.source
 					},function(){
 						topic.inside = true;
@@ -77,37 +79,42 @@ var detailMatch = function($) {
 	var wrap = $('._j_content');
 	var obj = {
 		coverImg: '',
-		content: ''
+		content: '',
+		elements: new Array()
 	};
 
 	if (wrap.length <= 0) {
 		wrap = $('.vc_article');
 		$('._j_note_content, .add_pic._j_anchorcnt').each(function(i, e) {
-			if ($(e).find('img').length > 0) {
-				if ($(e).find('img').first().attr('data-rt-src')) {
-					if(obj.coverImg === '')
-						obj.coverImg = $(e).find('img').first().attr('data-src');
-					obj.content += '<image class="weui-article__img" src="' + $(e).find('img').first().attr('data-rt-src') + '" bindload="imgloader"/>';
-				}
-			} else {
-				obj.content += '<view class="weui-article__p">' + $(e).text().replace(/\s+/g, ' ') + '</view>';
-			}
+			fetch(obj, $(e), 'data-rt-src');
 		})
 	} else {
 		$('div.f-block', wrap).each(function(i, e) {
-			if ($(e).find('img').length > 0) {
-				if ($(e).find('img').first().attr('data-src')) {
-					if(obj.coverImg === '')
-						obj.coverImg = $(e).find('img').first().attr('data-src');
-					obj.content += '<image class="weui-article__img" src="' + $(e).find('img').first().attr('data-rt-src') + '" bindload="imgloader"/>';
-				}
-			} else {
-				obj.content += '<view class="weui-article__p">' + $(e).text().replace(/\s+/g, ' ') + '</view>';
-			}
+			fetch(obj, $(e), 'data-src');
 		})
 	}
 	
+	obj.content = JSON.stringify(obj.elements);
 	return obj;
+}
+
+function fetch(obj, $e, attr) {
+	if ($e.find('img').length > 0) {
+		var src = $e.find('img').first().attr(attr);
+		if (src) {
+			src = src.replace(/\s+/g, ' ');
+			if(obj.coverImg === '') obj.coverImg = src 
+			obj.elements.push({
+				type: 'img',
+				value: src
+			});
+		}
+	} else {
+		obj.elements.push({
+			type: 'txt',
+			value: $e.text().replace(/\s+/g, ' ')
+		});
+	}
 }
 
 var job = new CronJob({

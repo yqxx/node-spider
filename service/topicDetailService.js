@@ -25,6 +25,7 @@ exports.create = function(topicDetail, res) {
 	TopicDetail.create(topicDetail).then(detail => {
 		res(detail);
 	}).catch(result => {
+		console.log(result)
 		res(result)
 	})
 }
