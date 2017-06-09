@@ -4,14 +4,14 @@
   "description": "",
   "main": "main.js",
   "dependencies": {
-    "async": "2.x",
+    "async": "^2.4.1",
     "cheerio": "^0.22.0",
-    "cron": "1.x",
+    "cron": "^1.2.1",
     "express": "^4.15.3",
     "gbk": "^0.1",
     "mysql": "^2.13.0",
-    "nodemailer": "4.x",
-    "request": "2.x",
+    "nodemailer": "^4.0.1",
+    "request": "^2.81.0",
     "sequelize": "^3.30.4"
   },
   "scripts": {
