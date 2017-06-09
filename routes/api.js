@@ -16,6 +16,21 @@ app.get('/list', function(req, res) {
 	})
 });
 
+app.get('/page', function(req, res) {
+	Topic.findAndCountAll({
+		where:{
+            img:{
+                '$ne': ''
+            }
+        },
+        'order': "id DESC",
+        'limit': parseInt(req.query.limit),
+    	'offset': parseInt(req.query.offset)
+	}).then(topic => {
+		res.json(topic);
+	})
+});
+
 app.get('/detail/:source/:sid', function(req, res) {
 	topicDetailService.findOne(req.params.sid, req.params.source, (detail => {
 		res.json(detail);
