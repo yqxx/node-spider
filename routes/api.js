@@ -8,7 +8,8 @@ app.get('/list', function(req, res) {
 		where:{
             img:{
                 '$ne': ''
-            }
+            },
+            source: 'mafengwo'
         },
         'order': "id DESC"
 	}).then(topic => {
@@ -29,6 +30,16 @@ app.get('/page', function(req, res) {
 	}).then(topic => {
 		res.json(topic);
 	})
+});
+
+app.get('/category', function(req, res) {
+	res.json([{
+		"code": "mafengwo",
+		"name": "蚂蜂窝"
+	}, {
+		"code": "ifanr",
+		"name": "爱范儿"
+	}]);
 });
 
 app.get('/detail/:source/:sid', function(req, res) {
