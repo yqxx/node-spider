@@ -39,8 +39,12 @@ app.get('/category', function(req, res) {
 	}, {
 		"code": "ifanr",
 		"name": "爱范儿"
+	}, {
+		"code": "huxiu",
+		"name": "虎嗅"
 	}]);
 });
+
 
 app.get('/detail/:source/:sid', function(req, res) {
 	topicDetailService.findOne(req.params.sid, req.params.source, (detail => {
