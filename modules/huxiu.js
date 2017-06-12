@@ -1,10 +1,10 @@
 var spidbase = require('./spidbase');
 
 function listMatch($, res) {
-	$('div.article-hp-info').each(function(i, e) {
+	$('div.mod-art').each(function(i, e) {
 		var topic = {
 			title: $('h2', e).text().replace(/\s+/g, ' '),
-			info: '',
+			info: $('.mob-sub', e).text().replace(/\s+/g, ' '),
 			href: rule.href + $('a', e).attr("href"),
 			source: 'huxiu',
 			img: '',
@@ -24,12 +24,12 @@ function detailMatch($) {
 		elements: new Array()
 	};
 
-	$('.article-content-img').each(function(i, e) {
-		spidbase.fetch(obj, $(e), 'data-original');
+	$('.article-img-box').each(function(i, e) {
+		spidbase.fetch(obj, $(e), 'src');
 	});
 
-	$('p','.article-content').each(function(i, e) {
-		spidbase.fetch(obj, $(e), 'data-original');
+	$('p','.article-content-wrap').each(function(i, e) {
+		spidbase.fetch(obj, $(e), 'src');
 	})
 
 	obj.content = JSON.stringify(obj.elements);
@@ -38,7 +38,7 @@ function detailMatch($) {
 
 var rule = {
 	source: 'huxiu',
-	href: 'https://m.huxiu.com/',
+	href: 'https://www.huxiu.com/',
 	listMatch: listMatch,
 	detailMatch: detailMatch
 }
@@ -48,3 +48,5 @@ exports.task = function(){
 	spidbase.detail(rule);
 }
 
+// spidbase.list(rule);
+spidbase.detail(rule);

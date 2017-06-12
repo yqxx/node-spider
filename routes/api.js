@@ -18,12 +18,14 @@ app.get('/list', function(req, res) {
 });
 
 app.get('/page', function(req, res) {
+	var where = {};
+	where.img = {'$ne': ''}
+
+	if(req.query.source)
+		where.source = req.query.source
+
 	Topic.findAndCountAll({
-		where:{
-            img:{
-                '$ne': ''
-            }
-        },
+		where,
         'order': "id DESC",
         'limit': parseInt(req.query.limit),
     	'offset': parseInt(req.query.offset)
@@ -32,7 +34,7 @@ app.get('/page', function(req, res) {
 	})
 });
 
-app.get('/category', function(req, res) {
+app.get('/sources', function(req, res) {
 	res.json([{
 		"code": "mafengwo",
 		"name": "蚂蜂窝"

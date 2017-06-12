@@ -4,17 +4,19 @@ var topicService = require('../service/topicService');
 var topicDetailService = require('../service/topicDetailService');
 var log = require('../utils/log');
 
-exports.fetch = function (obj, $e, attr) {
+exports.fetch = function(obj, $e, attr) {
 	if ($e.find('img').length > 0) {
 		var src = $e.find('img').first().attr(attr);
 		if (src) {
 			src = src.replace(/\s+/g, ' ');
-			if(obj.coverImg === '') obj.coverImg = src 
+			if (obj.coverImg === '') obj.coverImg = src
 			obj.elements.push({
 				type: 'img',
 				value: src
 			});
 		}
+	} else if ($e.find('video').length > 0) {
+
 	} else {
 		obj.elements.push({
 			type: 'txt',
