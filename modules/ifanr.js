@@ -41,7 +41,6 @@ var rule = {
 }
 
 exports.task = function(){
-	console.log('ifanr task.');
 	spidbase.list(rule);
 	spidbase.detail(rule);
 }

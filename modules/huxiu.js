@@ -5,7 +5,7 @@ function listMatch($, res) {
 		var topic = {
 			title: $('h2', e).text().replace(/\s+/g, ' '),
 			info: '',
-			href: $('a.rec-article-pic', e).attr("href"),
+			href: rule.href + $('a', e).attr("href"),
 			source: 'huxiu',
 			img: '',
 			sid: i,	
@@ -18,15 +18,18 @@ function listMatch($, res) {
 }
 
 function detailMatch($) {
-	var wrap = $('.c-article-content');
 	var obj = {
 		coverImg: '',
 		content: '',
 		elements: new Array()
 	};
 
-	$('p', wrap).each(function(i, e) {
-		spidbase.fetch(obj, $(e), 'src');
+	$('.article-content-img').each(function(i, e) {
+		spidbase.fetch(obj, $(e), 'data-original');
+	});
+
+	$('p','.article-content').each(function(i, e) {
+		spidbase.fetch(obj, $(e), 'data-original');
 	})
 
 	obj.content = JSON.stringify(obj.elements);
@@ -45,5 +48,3 @@ exports.task = function(){
 	spidbase.detail(rule);
 }
 
-spidbase.list(rule);
-// spidbase.detail(rule);

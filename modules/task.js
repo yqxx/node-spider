@@ -1,13 +1,13 @@
 var ifanr = require('./ifanr');
+var huxiu = require('./huxiu');
 var CronJob = require('cron').CronJob;
 
 
 var job = new CronJob({
 	cronTime: '0 */60 * * * *',
 	onTick: function() {
-		console.log('task runing')
 		ifanr.task();
-		console.log('task ending')
+		huxiu.task();
 	},
 	start: true
 });
