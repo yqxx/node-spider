@@ -37,13 +37,16 @@ app.get('/page', function(req, res) {
 app.get('/sources', function(req, res) {
 	res.json([{
 		"code": "mafengwo",
-		"name": "蚂蜂窝"
+		"name": "蚂蜂窝",
+		"icon": "http://images.mafengwo.net/images/app/m/logo_gonglve_v6.png?v=20150825"
 	}, {
 		"code": "ifanr",
-		"name": "爱范儿"
+		"name": "爱范儿",
+		"icon": "http://ifanr-cdn.b0.upaiyun.com/wp-content/themes/ifanr-4.0/static/images/ifanr/top-nav-down-logo.png"
 	}, {
 		"code": "huxiu",
-		"name": "虎嗅"
+		"name": "虎嗅",
+		"icon": "https://static.huxiucdn.com/m/image/guide-logo.png?v=201706161525"
 	}]);
 });
 
