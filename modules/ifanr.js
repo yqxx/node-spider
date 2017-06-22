@@ -1,17 +1,17 @@
 var spidbase = require('./spidbase');
 
 function listMatch($, res) {
-	$('div.o-matrix__row__unit').each(function(i, e) {
+	$('div.article-item').each(function(i, e) {
 		var topic = {
 			title: $('h3', e).text().replace(/\s+/g, ' '),
 			info: '',
-			href: $('a.article-link', e).attr("href"),
+			href: $('a.article-link', e).attr("href").replace(/\s+/g, ' '),
 			source: 'ifanr',
 			img: '',
-			sid: $('.article-item', e).attr('data-post-id'),
+			sid: $(e).attr('data-post-id'),
 			inside: false
 		}
-		if (topic.href) {
+		if (topic.href && topic.sid) {
 			res(topic);
 		}
 	});
@@ -35,12 +35,15 @@ function detailMatch($) {
 
 var rule = {
 	source: 'ifanr',
-	href: 'http://www.ifanr.com/author/chenshiwei',
+	href: 'http://www.ifanr.com/',
 	listMatch: listMatch,
 	detailMatch: detailMatch
 }
 
-exports.task = function(){
+exports.tasklist = function(){
 	spidbase.list(rule);
+}
+
+exports.taskdetail = function(){
 	spidbase.detail(rule);
 }

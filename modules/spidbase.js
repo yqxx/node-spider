@@ -61,17 +61,15 @@ exports.detail = function(rule) {
 				function(arg, next) {
 					var $ = spider.getResult(arg.body + '');
 					var obj = rule.detailMatch($);
-
-					topicDetailService.create({
+					var topicDetail = {
 						sid: arg.sid,
 						content: obj.content,
 						title: arg.title,
 						source: arg.source
-					}, function() {
-						topic.inside = true;
-						topic.img = obj.coverImg;
-						topicService.update(topic);
-					}, function() {
+					};
+					log(topicDetail);
+
+					topicDetailService.create(topicDetail, function() {
 						topic.inside = true;
 						topic.img = obj.coverImg;
 						topicService.update(topic);

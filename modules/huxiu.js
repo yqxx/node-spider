@@ -8,10 +8,10 @@ function listMatch($, res) {
 			href: rule.href + $('a', e).attr("href"),
 			source: 'huxiu',
 			img: '',
-			sid: i,	
+			sid: $(e).attr('data-aid'),	
 			inside: false
 		}
-		if (topic.href) {
+		if (topic.href && topic.sid) {
 			res(topic);
 		}
 	});
@@ -43,10 +43,10 @@ var rule = {
 	detailMatch: detailMatch
 }
 
-exports.task = function(){
+exports.tasklist = function(){
 	spidbase.list(rule);
-	spidbase.detail(rule);
 }
 
-// spidbase.list(rule);
-spidbase.detail(rule);
+exports.taskdetail = function(){
+	spidbase.detail(rule);
+}
