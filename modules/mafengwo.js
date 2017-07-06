@@ -45,13 +45,10 @@ var rule = {
 	detailMatch: detailMatch
 }
 
-// var job = new CronJob({
-// 	cronTime: '*/5 * * * * *',
-// 	onTick: function() {
-// 		topic()
-// 	},
-// 	start: false
-// });
+exports.tasklist = function(){
+	spidbase.list(rule);
+}
 
-// spidbase.list(rule);
-spidbase.detail(rule);
+exports.taskdetail = function(){
+	spidbase.detail(rule);
+}
