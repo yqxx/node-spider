@@ -20,6 +20,7 @@ app.get('/list', function(req, res) {
 app.get('/page', function(req, res) {
 	var where = {};
 	where.img = {'$ne': ''}
+	where.inside = 1
 
 	if(req.query.source)
 		where.source = req.query.source

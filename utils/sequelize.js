@@ -4,7 +4,6 @@ var config = require('../config');
 var sequelize = new Sequelize(config.dbconfig.database, config.dbconfig.user, config.dbconfig.password, {
 	host: config.dbconfig.host,
 	dialect: 'mysql',
-	logging: false,
 	dialectOptions: {
 		charset: "utf8mb4",
 		collate: "utf8mb4_unicode_ci",
