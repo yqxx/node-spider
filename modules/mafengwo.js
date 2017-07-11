@@ -1,13 +1,13 @@
 var spidbase = require('./spidbase');
 
 function listMatch($, res) {
-	$('div.feed-item').each(function(i, e) {
+	$('div.feed-item[data-type="1"]').each(function(i, e) {
 		var topic = {
 			title: $('.title', e).text().replace(/\s+/g, ' '),
 			info: $('.info', e).text().replace(/\s+/g, ' '),
 			href: $('a', e).attr("href"),
 			source: 'mafengwo',
-			img: $('img', e).first().attr('src'),
+			img: '',
 			sid: $(e).attr('data-fid'),
 			inside: false
 		}
@@ -16,24 +16,20 @@ function listMatch($, res) {
 }
 
 function detailMatch($) {
-	var wrap = $('._j_content');
+	var wrap = $('.vc_article');
 	var obj = {
 		coverImg: '',
 		content: '',
 		elements: new Array()
 	};
 
-	if (wrap.length <= 0) {
-		wrap = $('.vc_article');
-		$('._j_note_content, .add_pic._j_anchorcnt').each(function(i, e) {
-			spidbase.fetch(obj, $(e), 'data-rt-src');
-		})
-	} else {
-		$('div.f-block', wrap).each(function(i, e) {
-			spidbase.fetch(obj, $(e), 'data-src');
-		})
-	}
+	$('div ._j_lazyload',wrap).each(function(i, e) {
+		spidbase.fetch(obj, $(e), 'data-src');
+	})
 
+	$('div, p',wrap).each(function(i, e) {
+		spidbase.fetch(obj, $(e), 'data-src');
+	})
 	obj.content = JSON.stringify(obj.elements);
 	return obj;
 }
@@ -52,3 +48,4 @@ exports.tasklist = function(){
 exports.taskdetail = function(){
 	spidbase.detail(rule);
 }
+

@@ -21,11 +21,11 @@ exports.findOneById = function(id, res) {
 	})
 }
 
-exports.create = function(topicDetail, res) {
+exports.create = function(topicDetail, res, error) {
 	TopicDetail.create(topicDetail).then(detail => {
 		res(detail);
 	}).catch(result => {
 		console.log(result)
-		res(result)
+		error && error(result)
 	})
 }

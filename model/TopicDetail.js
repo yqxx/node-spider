@@ -28,7 +28,7 @@ var TopicDetail = db.sequelize.define('topicDetail', {
 }, {
 	freezeTableName: true,
 	underscoredAll:true,
-	timestamps: true
+	timestamps: false
 });
 
 module.exports = TopicDetail;

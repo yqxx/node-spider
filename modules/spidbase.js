@@ -73,6 +73,9 @@ exports.detail = function(rule) {
 						topic.inside = true;
 						topic.img = obj.coverImg;
 						topicService.update(topic);
+					}, function(){
+						topic.inside = true;
+						topicService.update(topic);
 					});
 				}
 			], function(err, result) {
